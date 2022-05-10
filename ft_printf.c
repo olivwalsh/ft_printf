@@ -6,27 +6,11 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 16:51:40 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/09 19:27:45 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/10 18:05:38 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-// int	countargs(const char *str)
-// {
-// 	int		i;
-// 	int		count;
-
-// 	i = 0;
-// 	count = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '%' && specifier(str[i + 1]))
-// 			count++;
-// 		i++;
-// 	}
-// 	return (count);	
-// }
 
 int	specifier(char c)
 {
@@ -50,7 +34,13 @@ int	callspecifier(char c, va_list args)
 		return (ft_putchar(va_arg(args, int)));
 	else if (c == 's')
 		return (ft_putstr(va_arg(args, char *)));
-	else if (c == 'd')
+	else if (c == 'x')
+		return (ft_puthex(va_arg(args, int)));
+	else if (c == 'X')
+		return (ft_putHEX(va_arg(args, int)));
+	else if (c == '%')
+		return (ft_putchar('%'));
+	else if (c == 'd' || c == 'i')
 		return (ft_itoa(va_arg(args, int)));
 	return (0);
 }
@@ -77,7 +67,7 @@ int ft_printf(const char *str, ...)
 		{
 			write(1, &str[i], 1);
 			sum++;
-		}	
+		}
 		i++;
 	}
 	va_end(args);
@@ -86,6 +76,7 @@ int ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	ft_printf("Hello %s \n", "Fanny");
+	printf("Hello %i\n", 42);
+	ft_printf("Hello %i \n", 42);
 	return 0;
 }
