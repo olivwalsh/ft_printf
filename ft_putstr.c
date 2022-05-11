@@ -6,15 +6,19 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:13:38 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/09 19:14:56 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/11 09:08:18 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_putstr(char *str)
 {
 	int	i;
+
+	i = 0;
+	if (!str)
+		str = "(null)";
 	while (str[i])
 	{
 		ft_putchar(str[i]);
