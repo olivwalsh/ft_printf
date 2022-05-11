@@ -6,7 +6,7 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 16:51:40 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/11 13:24:18 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/11 17:53:09 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	callspecifier(char c, va_list args)
 	return (0);
 }
 
-int	t_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	args;
 	int		i;
@@ -54,14 +54,13 @@ int	t_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			sum += callspecifier(str[i + 1], args);
 			i++;
+			if (!str[i])
+				break ;
+			sum += callspecifier(str[i], args);
 		}
 		else
-		{
-			write(1, &str[i], 1);
-			sum++;
-		}
+			sum += ft_putchar(str[i]);
 		i++;
 	}
 	va_end(args);
