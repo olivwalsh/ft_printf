@@ -6,67 +6,57 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:26:10 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/10 17:56:08 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/11 13:25:25 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	charcount(int nb, char *base)
+int	charcount(unsigned long long nb)
 {
 	int	i;
-	int	baselen;
 
 	i = 1;
-	baselen = ft_strlen(base);
-	while (nb >= baselen)
+	while (nb >= 16)
 	{
-		nb = nb / baselen;
+		nb = nb / 16;
 		i++;
 	}
 	return (i);
 }
 
-void	putnbr_base(int nb, char *base)
+void	putnbr_base(unsigned long long nb, char *base)
 {
-	int	baselen;
-
-	baselen = ft_strlen(base);
-	if (nb >= baselen)
-		putnbr_base((nb / baselen), base);
-	ft_putchar(base[nb % baselen]);
+	if (nb >= 16)
+		putnbr_base((nb / 16), base);
+	ft_putchar(base[nb % 16]);
 }
 
-int	ft_puthex(int i)
+int	ft_puthex(int i, char x)
 {
-	char	*base;
-	int		sum;
+	char			*base;
+	int				sum;
+	unsigned int	c;
+
+	if (x == 'x' || x == 'p')
+		base = "0123456789abcdef";
+	else if (x == 'X')
+		base = "0123456789ABCDEF";
+	sum = 0;
+	c = (unsigned int)i;
+	putnbr_base(c, base);
+	sum += charcount(c);
+	return (sum);
+}
+
+int	ft_putpointer(unsigned long long l)
+{
+	char		*base;
+	int			sum;
 
 	base = "0123456789abcdef";
 	sum = 0;
-	if (i < 0)
-	{
-		ft_putchar('-');
-		sum++;
-	}
-	putnbr_base(i, base);
-	sum += charcount(i, base);
-	return (sum);	
-}
-
-int	ft_putHEX(int i)
-{
-	char	*base;
-	int		sum;
-
-	base = "0123456789ABCDEF";
-	sum = 0;
-	if (i < 0)
-	{
-		ft_putchar('-');
-		sum++;
-	}
-	putnbr_base(i, base);
-	sum += charcount(i, base);
-	return (sum);	
+	putnbr_base(l, base);
+	sum += charcount(l);
+	return (sum);
 }

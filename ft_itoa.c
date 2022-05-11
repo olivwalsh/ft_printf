@@ -6,11 +6,11 @@
 /*   By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 19:16:49 by owalsh            #+#    #+#             */
-/*   Updated: 2022/05/09 19:25:02 by owalsh           ###   ########.fr       */
+/*   Updated: 2022/05/11 13:25:35 by owalsh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static long	countdigits(long n)
 {
@@ -25,16 +25,15 @@ static long	countdigits(long n)
 	return (i);
 }
 
-static void	putnbr(long n, char *str, int size)
+static void	putnbr(long n)
 {
 	if (n > 9)
-		putnbr(n / 10, str, size - 1);
-	*(str + size) = n % 10 + '0';
+		putnbr(n / 10);
+	ft_putchar(n % 10 + '0');
 }
 
 int	ft_itoa(int n)
 {
-	char	*str;
 	long	l;
 	int		size;
 
@@ -42,17 +41,23 @@ int	ft_itoa(int n)
 	l = n;
 	if (l < 0)
 	{
+		ft_putchar('-');
 		l *= -1;
 		size += 1;
 	}
 	size += countdigits(l);
-	str = malloc(sizeof(char) * (size + 1));
-	if (!str)
-		return (0);
-	if (n < 0)
-		str[0] = '-';
-	putnbr(l, str, size - 1);
-	str[size] = '\0';
-	ft_putstr(str);
-	return (5);
+	putnbr(l);
+	return (size);
+}
+
+int	ft_uitoa(int n)
+{
+	unsigned int	u;
+	int				size;
+
+	size = 0;
+	u = (unsigned int)n;
+	size += countdigits(u);
+	putnbr(u);
+	return (size);
 }

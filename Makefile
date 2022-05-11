@@ -6,7 +6,7 @@
 #    By: owalsh <owalsh@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/08 16:49:02 by owalsh            #+#    #+#              #
-#    Updated: 2022/05/10 18:08:58 by owalsh           ###   ########.fr        #
+#    Updated: 2022/05/11 13:20:35 by owalsh           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,10 @@ ${OBJDIR}/%.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	rm -f $(OBJ)
+	rm -rf $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -rf $(OBJDIR) $(NAME)
 
 re: fclean all
 
